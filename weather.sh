@@ -20,13 +20,20 @@ TMP=65
 ## tmp - lowest tolerable temperature without a coat in fahrenheit
 curl -s $URL?appid=$KEY\&zip=$ZIP\&units=$UNITS | tr ',|{' '\n' | grep "temp\|description" | awk -F : -v tmp=$TMP 'BEGIN {print "Checking the weather ..."} {
 
+# At this point the current stream format is
+# "key" value
+# $1 = "key"
+# $2 = "value 
 if ($1 == "\"temp\"") {
+	# Logic for bringing a coat
 	if ($2 <= tmp) {
 		print "Bring a coat. It is " $2 " F"
 	} else {
 		print $2 " F today. No coat needed" 
 	}
 } else if ($1 == "\"description\""){
+	# Logic for bringing an umbrella
+	# if statement checks if $2 contains regEx patter /rain/ on it
 	if ($2 ~ /rain/) {
 		print "Bring an umbrella. We have " $2
 	} else {
