@@ -9,4 +9,4 @@
 1. Location is hard coded in the $ZIP variable.
 2. Temperature tolerance is hard coded via $TMP variable
 3. Units used is Fahrenheit
-4. 
+ 
